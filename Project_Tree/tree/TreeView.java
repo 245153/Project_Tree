@@ -21,11 +21,13 @@ public class TreeView extends View
 {
     /**
      * 情報操作をするTreeModelのインスタンスを束縛する。
+     * 良好（2014年7月21日）
      */
     protected TreeModel aTreeModel;
     
     /**
      * 制御を司るTreeControllerのインスタンスを束縛する。
+     * 良好（2014年7月21日）
      */
     protected TreeController aTreeController;
     
@@ -34,6 +36,7 @@ public class TreeView extends View
      * 指定されたモデルの依存物となり、指定されたコントローラにモデルとビューを設定し、スクロール量をを(0, 0)に設定する。
      * @param aTreeModel 指定されたツリーモデル
      * @param aTreeController 指定されたツリーコントローラ
+     * 良好（2014年7月21日）
      */
     public TreeView(TreeModel aTreeModel, TreeController aTreeController)
     {
@@ -47,6 +50,7 @@ public class TreeView extends View
      * 指定されたグラフィクスに背景色（白色）でビュー全体を塗り、その上ににモデルの内容物を描画する。
      * スクロール量に応じてモデル画像(picture)をパネル内に描画する。
      * @param baseGraphics 指定されたグラフィックス
+     * 良好（2014年7月21日）
      */
     public void paintComponent(Graphics baseGraphics)
     {
@@ -118,6 +122,7 @@ public class TreeView extends View
      * 読み込むファイルを指定させるウィンドウを表示し、指定されたファイルパスを文字列を返す。
      * @return 読み込んだファイルのパスの文字列。
      * バグ：JFileChooser.showOpenDialogの中で選択ダイアログが表示されず処理が止まる。
+     * バグ（2014年7月21日）
      */
     public String fileSelectFrame()
     {

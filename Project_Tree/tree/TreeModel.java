@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.Point;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,28 +19,32 @@ public class TreeModel extends Model
 {
     /**
      * ノード(Element)をリストで束縛する。
+     * 良好（2014年7月21日）
      */
     private static ArrayList<Element> elementList;
     
     /**
      * ノード(Element)をリストで束縛する（ソートしたもの）。
+     * 良好（2014年7月21日）
      */
     private ArrayList<Element> sortElementList = new ArrayList<Element>();
     
     /**
      * y座標を設定するための値。
+     * 良好（2014年7月21日）
      */
     private static int indexSort = Constants.DISPLACEMENT;
     
     /**
      * y座標を設定するための値。
+     * 良好（2014年7月21日）
      */
     private static int indexSortParent = Constants.DISPLACEMENT;
     
 	/**
 	 * インスタンスを生成して初期化して応答する。
      * またテキストファイルを読み込み、樹の要素をエレメントに設定し、描画する順にソートする。
-     * @param aFilePath 指定されたファイルパス。
+     * 良好（2014年7月21日）
 	 */
 	public TreeModel()
 	{
@@ -52,6 +57,7 @@ public class TreeModel extends Model
     /**
      * 指定されたファイルパスを読み込み、要素を設定する。
      * @param aFilePath 指定されたファイルパス。
+     * 良好（2014年7月21日）
      */
     public void setElement(String aFilePath)
     {
@@ -139,6 +145,7 @@ public class TreeModel extends Model
     
     /**
      * 子をアルファベット順にソートしたのち描画する順にソートしアレイリストに設定する。
+     * 良好（2014年7月21日）
      */
     public void sort()
     {
@@ -184,10 +191,11 @@ public class TreeModel extends Model
      * 指定された要素から再帰的に子をたどっていき、アレイリストに格納する。
      * またノードを描くx座標とy座標を設定する。
      * @param aElement 指定された要素。
+     * 良好（2014年7月21日）
      */
     public void searchChild(Element aElement)
     {
-        Point aPoint = null;
+        Point aPoint;
         if(aElement.getParents().size() == 0)
         {
             indexSortParent += Constants.DISPLACEMENT * 20;
@@ -220,6 +228,7 @@ public class TreeModel extends Model
 	 * マウスクリックした位置を座標取得し、その座標範囲に要素があれば出力
      * @param aPoint ピクチャ座標
      * @param aMouseEvent マウスのイベント
+     * 良好（2014年7月21日）
 	 */
 	public void mouseClicked(Point aPoint, MouseEvent aMouseEvent)
 	{
@@ -239,6 +248,7 @@ public class TreeModel extends Model
     /**
      * ノードのリストを返す。
      * @return ノードのリスト。
+     * 良好（2014年7月21日）
      */
     public ArrayList<Element> getElementList()
     {
@@ -248,6 +258,7 @@ public class TreeModel extends Model
     /**
      * ノードをソートしたリストを返す。
      * @return ノードのソートリスト。
+     * 良好（2014年7月21日）
      */
     public ArrayList<Element> getElementSortList()
     {

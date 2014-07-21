@@ -11,6 +11,7 @@ public class TreeController extends Controller
 {
     /**
      * インスタンスを生成する。
+     * 良好（2014年7月21日）
      */
     public TreeController()
     {
@@ -20,6 +21,7 @@ public class TreeController extends Controller
     /**
 	 * ダブルバッファのpicture画像を基に、木全体を全体を動かす。
      * @param aMouseEvent マウスイベントのインスタンス
+     * 良好（2014年7月21日）
 	 */
     public void mouseDragged(MouseEvent aMouseEvent)
 	{
@@ -30,6 +32,7 @@ public class TreeController extends Controller
     /**
 	 * マウスクリックした位置の木の要素（文字列）を出力する。
      * @param aMouseEvent マウスイベントのインスタンス
+     * 良好（2014年7月21日）
 	 */
 	public void mouseClicked(MouseEvent aMouseEvent)
 	{
