@@ -30,7 +30,7 @@ public class TreeView extends View
      * 良好（2014年7月21日）
      */
     protected TreeController aTreeController;
-    
+	   
     /**
      * インスタンスを生成して応答する。
      * 指定されたモデルの依存物となり、指定されたコントローラにモデルとビューを設定し、スクロール量をを(0, 0)に設定する。
@@ -45,7 +45,12 @@ public class TreeView extends View
         this.controller = aTreeController;
     }
     
-    private static int index = -1;
+	/**
+	 * アニメーションを行うための段階を表す値。
+	 * 良好（2014年7月21日）
+	 */
+	private static int index = -1;
+
     /**
      * 指定されたグラフィクスに背景色（白色）でビュー全体を塗り、その上ににモデルの内容物を描画する。
      * スクロール量に応じてモデル画像(picture)をパネル内に描画する。
@@ -109,7 +114,7 @@ public class TreeView extends View
         try
         {
             repaint();
-            Thread.sleep(100);
+            Thread.sleep(30);
         }
         catch(InterruptedException aInterruptedException)
         {
@@ -161,7 +166,7 @@ public class TreeView extends View
         catch(NullPointerException aNullPointerException)
         {
         	System.out.println(aNullPointerException);
-        	System.exit(0);
+        	System.exit(1);
         }
         return aFilePath;
     }

@@ -8,7 +8,7 @@ test:
 install:
 	$(ANT) install
 doc:
-	$(ANT) javadoc
+	$(ANT) doc
 zip:
 	$(ANT) zip
 

@@ -3,15 +3,15 @@ package tree;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 
+
 /**
- * 樹状整列におけるメインクラス
+ *樹状整列におけるメインクラス
  */
 public class Example extends Object
 {
     /**
-     * TreeViewにTreeModelとTreeControllerのデータを渡し、アニメーションのためのウィンドウを開く。
-     * @param arguments javaコマンドによる実行時に指定された文字列
      * 良好（2014年7月21日）
+	 * @param arguments  javaコマンドによる実行時に指定された文字列
      */
     public static void main(String[] arguments)
 	{

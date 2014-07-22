@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="ButtonDemo-impl" default="default" basedir=".." xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:j2seproject2="http://www.netbeans.org/ns/j2se-project/2" xmlns:j2seproject1="http://www.netbeans.org/ns/j2se-project/1" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
-    <target name="default" depends="test,jar,javadoc" description="Build and test whole project."/>
+<project name="Example-impl" default="default" basedir=".." xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:j2seproject2="http://www.netbeans.org/ns/j2se-project/2" xmlns:j2seproject1="http://www.netbeans.org/ns/j2se-project/1" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <target name="default" depends="test,jar,doc" description="Build and test whole project."/>
     <!--
 	 ======================
 	 INITIALIZATION SECTION
@@ -68,17 +68,6 @@
         <fail unless="dist.dir">Must set dist.dir</fail>
 		<fail unless="dist.javadoc.dir">Must set dist.javadoc.dir</fail>
         <fail unless="dist.jar">Must set dist.jar</fail>
-		<!-- ======================== 変更箇所 ========================================================-->
-		<fail unless="tree.dir">Must set tree.dir</fail>
-        
-        <fail unless="dist.dir">Must set dist.dir</fail>
-		
-		<fail unless="dist.javadoc.dir">Must set dist.javadoc.dir</fail>
-        
-        
-        
-        <fail unless="dist.jar">Must set dist.jar</fail>
-		<!-- ======================== 変更箇所 ========================================================-->
     </target>
     <target name="-init-macrodef-property">
         <macrodef name="property" uri="http://www.netbeans.org/ns/j2se-project/1">
@@ -109,7 +98,7 @@
     <target name="-pre-pre-compile" depends="init">
         <mkdir dir="${destdir}"/>
     </target>
-   
+	
 	<target name="compile" depends="init,-pre-pre-compile" description="Compile project.">
 		<javac
 			fork="true"
@@ -123,22 +112,16 @@
 			<compilerarg value="-Xlint:unchecked" />
 			<classpath>
 				<pathelement location="." />
-                <pathelement location="${mvc}.jar" />
+				<pathelement location="${mvc}.jar" />
 			</classpath>
 		</javac>
 	</target>
-
-    <target name="compile-single" depends="init"/>
+	
     <!--
 	 ====================
 	 JAR BUILDING SECTION
 	 ====================
-	 -->
-    <target name="-pre-pre-jar" depends="init">
-        <dirname property="dist.jar.dir" file="${dist.jar}"/>
-        <mkdir dir="${dist.jar.dir}"/>
-    </target>
-	
+	 -->	
     <target name="-do-jar-without-tree" depends="init,compile" unless="tree.available">
         <j2seproject1:jar/>
     </target>
@@ -191,56 +174,23 @@
     </target>
 	
     <target name="jar" depends="init,compile,-do-jar-with-tree,-do-jar-without-tree,-do-jar-with-mainclass,-do-jar-with-libraries" description="Build JAR."/>
-    <!--
+	<!--
 	 =================
 	 EXECUTION SECTION
 	 =================
 	 -->
-    <target name="run" depends="init,compile" description="Run a main class.">
-		
+    <target name="run" depends="init,jar,compile" description="Run a main class.">
 		<exec executable="java" spawn="false">
 			<arg line="-Dfile.encoding=UTF-8 -Xmx512m -Xss1024k -jar ${package}.jar" />
 		</exec>
-		
     </target>
-    <!--
-	 =================
-	 DEBUGGING SECTION
-	 =================
-	 -->
-    <target name="-debug-start-debugger" if="netbeans.home" depends="init">
-        <j2seproject1:nbjpdastart name="${debug.class}"/>
-    </target>
-    <target name="-debug-start-debuggee" depends="init,compile">
-        <j2seproject3:debug>
-            <customize>
-                <arg line="${application.args}"/>
-            </customize>
-        </j2seproject3:debug>
-    </target>
-    <target name="debug" if="netbeans.home" depends="init,compile,-debug-start-debugger,-debug-start-debuggee" description="Debug project in IDE."/>
-    <target name="-debug-start-debugger-stepinto" if="netbeans.home" depends="init">
-        <j2seproject1:nbjpdastart stopclassname="${main.class}"/>
-    </target>
-    <target name="debug-stepinto" if="netbeans.home" depends="init,compile,-debug-start-debugger-stepinto,-debug-start-debuggee"/>
-    <target name="-debug-start-debuggee-single" if="netbeans.home" depends="init,compile-single">
-        <fail unless="debug.class">Must select one file in the IDE or set debug.class</fail>
-        <j2seproject3:debug classname="${debug.class}"/>
-    </target>
-    <target name="debug-single" if="netbeans.home" depends="init,compile-single,-debug-start-debugger,-debug-start-debuggee-single"/>
-    <target name="-pre-debug-fix" depends="init">
-        <property name="javac.includes" value="${fix.includes}.java"/>
-    </target>
-    <target name="-do-debug-fix" if="netbeans.home" depends="init,-pre-debug-fix,compile-single">
-        <j2seproject1:nbjpdareload/>
-    </target>
-    <target name="debug-fix" if="netbeans.home" depends="init,-pre-debug-fix,-do-debug-fix"/>
-    <!--
+    
+	<!--
 	 ===============
 	 JAVADOC SECTION
 	 ===============
 	 -->
-    <target name="javadoc" depends="init" description="Build Javadoc." >
+    <target name="doc" depends="init" description="Build Javadoc." >
 		<mkdir dir="${docdir}" />
 		<javadoc
 			locale="en_US"
@@ -260,11 +210,10 @@
                 <pathelement location="${mvc}.jar" />
 			</classpath>
 		</javadoc>
-		<echo>on ${date} at ${time}</echo>
     </target>
     <!--
 	 =========================
-	 JUNIT COMPILATION SECTION
+	 COMPILATION SECTION
 	 =========================
 	 -->
     <target name="-pre-pre-compile-test" if="have.tests" depends="init,compile">
@@ -277,7 +226,11 @@
     <target name="compile-test" depends="init,compile,-pre-pre-compile-test,-do-compile-test"/>
     <target name="-do-compile-test-single" if="have.tests" depends="init,compile,-pre-pre-compile-test">
         <fail unless="javac.includes">Must select some files in the IDE or set javac.includes</fail>
-        <j2seproject3:javac srcdir="" destdir="${Classes.test.dir}" debug="true" classpath="${javac.test.classpath}">
+        <j2seproject3:javac
+			srcdir=""
+			destdir="${Classes.test.dir}"
+			debug="true"
+			classpath="${javac.test.classpath}">
             <customize>
                 <patternset includes="${javac.includes}"/>
             </customize>
@@ -287,29 +240,14 @@
     <target name="compile-test-single" depends="init,compile,-pre-pre-compile-test,-do-compile-test-single"/>
     <!--
 	 =======================
-	 JUNIT EXECUTION SECTION
+	 TEST SECTION
 	 =======================
 	 -->
-    <target name="-pre-test-run" if="have.tests" depends="init">
-        <mkdir dir="${Classes.test.results.dir}"/>
-    </target>
-    <target name="-do-test-run" if="have.tests" depends="init,compile-test,-pre-test-run">
-        <j2seproject3:junit/>
-    </target>
-    <target name="-post-test-run" if="have.tests" depends="init,compile-test,-pre-test-run,-do-test-run">
+    <target name="-post-test-run" if="have.tests" depends="init,compile-test">
+		<mkdir dir="${Classes.test.results.dir}"/>
         <fail if="tests.failed">Some tests failed; see details above.</fail>
     </target>
-    <target name="test" depends="init,compile-test,-pre-test-run,-do-test-run,-post-test-run" description="Run unit tests."/>
-    <target name="-pre-test-run-single" if="have.tests" depends="init">
-        <mkdir dir="${Classes.test.results.dir}"/>
-    </target>
-    <target name="-do-test-run-single" if="have.tests" depends="init,compile-test-single,-pre-test-run-single">
-        <fail unless="test.includes">Must select some files in the IDE or set test.includes</fail>
-        <j2seproject3:junit includes="${test.includes}"/>
-    </target>
-    <target name="-post-test-run-single" if="have.tests" depends="init,compile-test-single,-pre-test-run-single,-do-test-run-single">
-        <fail if="tests.failed">Some tests failed; see details above.</fail>
-    </target>
+    <target name="test" depends="init,jar,compile-test,-post-test-run" description="Run unit tests."/>
 	
 	<!--
 	 ===============
@@ -330,15 +268,21 @@
 	 ===============
 	 -->
 	<taskdef name="bundleapp" classname="com.oracle.appbundler.AppBundlerTask" classpath="lib/appbundler-1.0ea.jar" />
+	<target name="-pre-pre-jar" depends="init">
+        <dirname property="dist.jar.dir" file="${dist.jar}"/>
+        <mkdir dir="${dist.jar.dir}"/>
+    </target>
     <target name="-post-install">
         <bundleapp outputdirectory="dist"
-            name="Example"
-            displayname="Example"
+            name="${package}"
+            displayname="${package}"
             identifier="tree.Example"
             mainclassname="tree.Example">
             <classpath file="dist/tree.jar" />
         </bundleapp>
 		<copy file="${package}.jar" todir="${instdir}" />
+		<copy file="imge/GenericApp.icns" todir="./" />
+		<move file="${icons}.icns" todir="${insticnsdir}" />
 		<exec executable="chmod">
 			<arg line="755 ${instdir}/../MacOS/JavaAppLauncher" />
 		</exec>

@@ -10,7 +10,7 @@
 	<property name="docdir" value="./Javadoc" />
 	<property name="zipname" value="${ant.project.name}" />
 	<property name="profile" value="java.hprof" />
-	<property name="instdir" value="dist/${ant.project.name}.app/Contents/Java" />
-	
-	
+	<property name="instdir" value="dist/${package}.app/Contents/Java" />
+	<property name="icons" value="GenericApp" />
+	<property name="insticnsdir" value="dist/${package}.app/Contents/Resources" />
 </project>
