@@ -10,9 +10,11 @@ import javax.swing.JFrame;
 public class Example extends Object
 {
     /**
+     * TreeViewにTreeModelとTreeControllerのデータを渡し、アニメーションのためのウィンドウを開く。
+     * @param arguments javaコマンドによる実行時に指定された文字列
      * 良好（2014年7月21日）
-	 * @param arguments  javaコマンドによる実行時に指定された文字列
      */
+
     public static void main(String[] arguments)
 	{
         TreeModel aTreeModel = new TreeModel();
